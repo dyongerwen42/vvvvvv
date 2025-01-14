@@ -1063,7 +1063,7 @@ Audit link: ${window.location.href}`;
      * @param {string} contractAddress - The Ethereum contract address.
      */
     function fetchTransactionAnalysis(contractAddress) {
-      fetch(`http://localhost:3001/api/analyze-transfers/${contractAddress}`)
+      fetch(`http://34.90.192.142:3001/api/analyze-transfers/${contractAddress}`)
         .then((res) => {
           if (!res.ok) {
             return res.json().then((errorData) => {
