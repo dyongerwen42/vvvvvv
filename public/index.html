@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CRYPTOSAURUS - Owner Rights Risk Analysis</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome CDN -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Orbitron:wght@400;700&family=Roboto:wght@400;700&family=Fira+Code&display=swap"
+    rel="stylesheet"
+  />
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Prism.js CSS -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+    rel="stylesheet"
+  />
+  <!-- Prism.js Line Numbers CSS -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css"
+    rel="stylesheet"
+  />
+  <!-- Prism.js JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-solidity.min.js"></script>
+  <!-- Prism.js Line Numbers Plugin JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  <!-- js-beautify JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify-solidity.min.js"></script>
+
+  <style>
+    /* ===== Extra CSS for Animations and Modals ===== */
+    .neon-text {
+      color: #10b981;
+      text-shadow: 0 0 10px rgba(16, 185, 129, 0.7);
+    }
+    .neon-button {
+      background: #10b981;
+      color: #121212;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .neon-button:hover {
+      background: #059669;
+      transform: scale(1.05);
+    }
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 220px;
+      background-color: #10b981;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 8px;
+      position: absolute;
+      z-index: 10;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 20;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+    .modal-content {
+      background-color: #1f2937;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 8px;
+      color: #e5e7eb;
+      position: relative;
+      max-width: 600px;
+      width: 90%;
+    }
+    .close-modal {
+      color: #aaa;
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .close-modal:hover,
+    .close-modal:focus {
+      color: #fff;
+    }
+    /* Disclaimer Styles */
+    .disclaimer {
+    border: 2px solid #f59e0b; /* Solid border with color */
+    color: #a1a1a2; /* Gray-800 for text */
+    padding: 1.25rem; /* Slightly larger padding for better spacing */
+    border-radius: 0.5rem; /* More pronounced rounded corners */
+    margin-bottom: 1.5rem; /* Consistent spacing below the element */
+    text-align: center; /* Centered text */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+    .disclaimer a {
+      color: #dc2626; /* Red-600 */
+      text-decoration: underline;
+    }
+    /* Token Info Section Styling */
+    #tokenInfo div {
+      background-color: #2d3748;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      font-size: 1rem;
+    }
+    #tokenInfo div p {
+      margin-bottom: 0.5rem;
+    }
+    /* Contract Code Section Styling */
+    #contractCodeSection pre {
+      background-color: #2d3748;
+      padding: 1rem;
+      margin-top: 20px;
+      border-radius: 0.5rem;
+      overflow: auto;
+      font-size: 0.875rem;
+    }
+    #contractCodeSection pre code {
+      font-family: 'Fira Code', monospace;
+      line-height: 1.5;
+    }
+    /* Risk Score Circle Styling */
+    #riskScoreCircle {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: conic-gradient(#10B981 0% 60%, #EF4444 60% 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: #fff;
+      margin: 0 auto;
+    }
+    /* Smooth Scroll */
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="min-h-screen p-6 bg-gray-900 text-gray-200">
+  <!-- ========== HEADER / NAV ========== -->
+  <header class="mb-12">
+    <nav class="flex items-center justify-between flex-wrap p-4 sm:p-6">
+      <div class="flex items-center flex-shrink-0 text-white mr-6">
+        <!-- Logo Placeholder -->
+        <img
+          src="/logo.png"
+          alt="CRYPTOSAURUS Logo"
+          class="h-16 w-16 mr-3 rounded-lg shadow-lg"
+        />
+        <span
+          class="font-bold text-3xl tracking-tight neon-text"
+          style="font-family: 'Bebas Neue', sans-serif;"
+        >
+          CRYPTOSAURUS
+        </span>
+      </div>
+      <div class="block lg:hidden">
+        <button
+          id="nav-toggle"
+          class="flex items-center px-3 py-2 rounded text-gray-400 hover:text-green-400 transition-all"
+        >
+          <svg class="fill-current h-6 w-6" viewBox="0 0 24 24">
+            <path
+              d="M4 5h16v2H4V5zm0 6h16v2H4v-2zm0 6h16v2H4v-2z"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        id="nav-content"
+        class="w-full block flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block text-center lg:text-right"
+      >
+    
+      </div>
+    </nav>
+  </header>
+  <!-- END HEADER / NAV -->
+
+  <!-- ========== WRAPPER ========== -->
+  <div class="max-w-7xl mx-auto">
+    <!-- Loading Indicator (Hidden on Page Load) -->
+    <div id="loading" class="hidden flex flex-col justify-center items-center h-64">
+      <i class="fas fa-spinner fa-spin fa-4x text-green-500 mb-4"></i>
+      <p class="text-lg text-gray-200">Please wait, our AI is currently auditing the contract. This may take some time.</p>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main-content">
+      <!-- ========== DISCLAIMER SECTION ========== -->
+      <section id="disclaimer-section" class="disclaimer">
+        <p>
+          <strong>Disclaimer:</strong> This risk analysis is not financial advice. It is intended as an important part of your <em>Do Your Own Research (DYOR)</em>.
+        </p>
+      </section>
+      <!-- END DISCLAIMER SECTION -->
+
+      <!-- ========== HERO SECTION ========== -->
+      <section id="hero-section" class="hero-section mb-12 text-center">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold mb-4 neon-text"
+          style="font-family: 'Orbitron', sans-serif;"
+        >
+          Owner Rights Risk Analysis
+        </h1>
+        <p class="text-lg md:text-xl text-gray-400">
+          Overview of the owner rights and the potential for misuse within
+          <strong id="token-name">CRYPTOSAURUS</strong>
+          (<strong id="token-symbol">CRYPTO</strong>).
+        </p>
+
+        <!-- Audit Badges -->
+        <div id="auditBadges" class="mt-4 flex justify-center space-x-2">
+          <!-- Dynamically added -->
+        </div>
+
+        <!-- Important Owner Rights -->
+        <div class="mt-8 bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h2 class="text-2xl font-bold neon-text mb-2">
+            Important Owner Rights
+          </h2>
+          <ul class="list-disc list-inside text-gray-300">
+            <li>
+              <strong>Full Control:</strong> The owner can manage and distribute all tokens.
+            </li>
+            <li>
+              <strong>Unlimited Minting:</strong> Ability to create new tokens without restrictions.
+            </li>
+            <li>
+              <strong>Contract Adjustments:</strong> The owner can adjust critical parameters of the contract.
+            </li>
+          </ul>
+          <p class="mt-4 text-gray-300">
+            These rights can lead to centralization risks, such as market manipulation or loss of trust among users.
+          </p>
+          <!-- Tooltip -->
+          <p class="mt-4 text-gray-300">
+            <strong>More Information:</strong>
+            <span class="tooltip">
+              <i class="fas fa-info-circle text-blue-400 tooltip-icon"></i>
+              <span class="tooltiptext">
+                Centralization risks refer to the possibility that
+                one entity (the owner) has too much power over the token,
+                which can lead to market manipulation or loss of trust
+                among users.
+              </span>
+            </span>
+          </p>
+        </div>
+      </section>
+      <!-- END HERO SECTION -->
+
+      <!-- ========== SEARCH-CONTRACT SECTION ========== -->
+      <section id="search-section" class="mb-8 text-center">
+        <h2 class="text-2xl font-bold neon-text mb-4">
+          Search Contract
+        </h2>
+        <div class="max-w-md mx-auto">
+          <label
+            for="contract-address"
+            class="block mb-2 text-sm text-gray-400"
+          >
+            Enter the contract address below:
+          </label>
+          <div class="flex">
+            <input
+              id="contract-address"
+              type="text"
+              placeholder="e.g., 0x1234abcd..."
+              class="bg-gray-800 border border-gray-700 text-gray-300 rounded-l-lg py-2 px-4 w-full focus:outline-none focus:border-green-500"
+            />
+            <button
+              id="fetch-audit"
+              class="neon-button px-4 py-2 rounded-r-lg"
+            >
+              Get Audit
+            </button>
+          </div>
+          <p class="text-sm text-gray-400 mt-2">Currently supports only Ethereum tokens. Support for other blockchains will be added in the future.</p>
+        </div>
+      </section>
+      <!-- END SEARCH-CONTRACT SECTION -->
+
+      <!-- ========== TOKEN INFO (Hidden on Page Load) ========== -->
+      <!-- We changed lg:grid-cols-6 to lg:grid-cols-5 now that we removed Total Supply -->
+      <section
+        id="tokenInfo"
+        class="hidden mb-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6"
+      >
+        <!-- Name -->
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <p class="text-gray-400 flex items-center space-x-2">
+            <i class="fas fa-tag text-green-400"></i>
+            <strong>Name:</strong>
+          </p>
+          <p class="text-white text-lg mt-2" id="token-name-info">-</p>
+        </div>
+        <!-- Symbol -->
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <p class="text-gray-400 flex items-center space-x-2">
+            <i class="fas fa-coins text-green-400"></i>
+            <strong>Symbol:</strong>
+          </p>
+          <p class="text-white text-lg mt-2" id="token-symbol-info">-</p>
+        </div>
+        <!-- Decimals -->
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <p class="text-gray-400 flex items-center space-x-2">
+            <i class="fas fa-calculator text-green-400"></i>
+            <strong>Decimals:</strong>
+          </p>
+          <p class="text-white text-lg mt-2" id="token-decimals-info">-</p>
+        </div>
+
+        <!-- Ownership Renounced -->
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <p class="text-gray-400 flex items-center space-x-2">
+            <i class="fas fa-user-times text-green-400"></i>
+            <strong>Ownership Renounced:</strong>
+          </p>
+          <p class="text-white text-lg mt-2" id="token-renounced-info">-</p>
+        </div>
+
+        <!-- Proxy Admin Status -->
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <p class="text-gray-400 flex items-center space-x-2">
+            <i class="fas fa-user-shield text-green-400"></i>
+            <strong>Proxy Admin Status:</strong>
+          </p>
+          <p class="text-white text-lg mt-2" id="proxy-admin-info">-</p>
+        </div>
+      </section>
+      <!-- END TOKEN INFO -->
+
+      <!-- ========== KPI + CHART (Hidden on Page Load) ========== -->
+      <section id="kpi-chart-section" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <!-- Total Risk Score -->
+        <div class="bg-gray-800 p-6 rounded-lg flex flex-col items-center">
+          <i class="fas fa-bolt fa-3x text-yellow-400"></i>
+          <div class="text-center">
+            <p class="text-4xl font-bold" id="total-risk">0</p>
+            <p class="text-yellow-400">Total Risk Score</p>
+          </div>
+        </div>
+
+        <!-- Chart -->
+        <div class="bg-gray-800 p-6 rounded-lg relative">
+          <canvas id="statusChart" class="w-full h-64"></canvas>
+        </div>
+
+        <!-- Total Problems KPI -->
+        <div class="bg-gray-800 p-6 rounded-lg flex flex-col items-center">
+          <i class="fas fa-skull-crossbones fa-3x text-red-500"></i>
+          <div class="text-center">
+            <p class="text-3xl font-bold" id="total-problems">0</p>
+            <p class="text-red-500">Problems</p>
+          </div>
+        </div>
+      </section>
+      <!-- END KPI + CHART -->
+
+      
+      <!-- END TRANSACTION CHART SECTION -->
+
+      <!-- ========== RISK SCORE SECTION (Hidden on Page Load) ========== -->
+ 
+      <!-- END RISK SCORE SECTION -->
+
+      <!-- ========== FILTER BUTTONS (Hidden on Page Load) ========== -->
+      <section id="filter-buttons" class="hidden flex flex-wrap justify-center space-x-4 mb-8">
+        <button
+          id="filter-all"
+          class="bg-green-700 hover:bg-green-600 px-6 py-3 text-white flex items-center space-x-2 rounded-md shadow-lg transform hover:scale-105 neon-button transition-all"
+        >
+          <i class="fas fa-filter"></i>
+          <span>All</span>
+        </button>
+        <button
+          id="filter-problem"
+          class="bg-red-700 hover:bg-red-600 px-6 py-3 text-white flex items-center space-x-2 rounded-md shadow-lg transform hover:scale-105 neon-button transition-all"
+        >
+          <i class="fas fa-exclamation-triangle"></i>
+          <span>Problem</span>
+        </button>
+        <button
+          id="filter-ok"
+          class="bg-green-700 hover:bg-green-600 px-6 py-3 text-white flex items-center space-x-2 rounded-md shadow-lg transform hover:scale-105 neon-button transition-all"
+        >
+          <i class="fas fa-check-circle"></i>
+          <span>OK</span>
+        </button>
+      </section>
+      <!-- END FILTER BUTTONS -->
+
+      <!-- ========== AUDIT CHECKLIST (Hidden on Page Load) ========== -->
+      <section id="auditChecklist" class="hidden space-y-8">
+        <!-- Dynamically filled via JS -->
+      </section>
+      <!-- END AUDIT CHECKLIST -->
+
+      <!-- ========== CONCLUSION (Hidden on Page Load) ========== -->
+       <!-- ========== TRANSACTION CHART SECTION (Hidden on Page Load) ========== -->
+  
+      <section
+        id="conclusion"
+        class="hidden p-8 bg-gray-800 rounded-lg shadow-lg border-l-4 border-green-500"
+      >
+        <!-- Dynamically filled via JS -->
+      </section>
+      <section
+      id="share-section"
+      class="hidden mt-8 mb-8 bg-gray-800 p-6 rounded-lg shadow-lg"
+    >
+      <h3 class="text-xl font-bold neon-text mb-4">Share the results</h3>
+      <p class="text-gray-400 mb-4">
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <!-- Telegram -->
+        <a
+          id="share-telegram"
+          class="neon-button flex items-center space-x-2 px-4 py-2 rounded-md"
+          target="_blank"
+        >
+          <i class="fab fa-telegram-plane"></i>
+          <span>Telegram</span>
+        </a>
+        <!-- Discord -->
+        <button
+          id="share-discord"
+          class="neon-button flex items-center space-x-2 px-4 py-2 rounded-md"
+        >
+          <i class="fab fa-discord"></i>
+          <span>Discord (copy)</span>
+        </button>
+        <!-- X (Twitter) -->
+        <a
+          id="share-twitter"
+          class="neon-button flex items-center space-x-2 px-4 py-2 rounded-md"
+          target="_blank"
+        >
+          <i class="fab fa-twitter"></i>
+          <span>X</span>
+        </a>
+        <!-- Facebook -->
+        <a
+          id="share-facebook"
+          class="neon-button flex items-center space-x-2 px-4 py-2 rounded-md"
+          target="_blank"
+        >
+          <i class="fab fa-facebook-f"></i>
+          <span>Facebook</span>
+        </a>
+      </div>
+    </section>
+    
+      
+      <section id="conclusion3" class="hidden  p-8 bg-gray-800 rounded-lg shadow-lg ">
+        <h2 class="mt-8 text-2xl font-bold mb-4 border-b pb-2 border-gray-700 capitalize neon-text">
+          Extra: Analysis of Token Distribution to Top Wallets
+         </h2>
+        <h2 class="text-lg font-semibold text-white">Detailed Review of Token Distribution</h2>
+        <p class="text-gray-300 mt-2">
+          This section reviews the top 20 wallets that have received the largest total amounts of the token created by this contract. These totals are calculated based on all transactions to each wallet, regardless of whether they involve a single large transfer or multiple smaller ones. The goal is to identify any unusual concentration of tokens that might indicate suspicious activity.
+        </p>
+      
+        <section id="transactionChartSection" class="hidden mb-12">
+          <h3 class="text-md font-semibold text-gray-200 mb-2">Top Wallets Overview</h3>
+          <p class="text-gray-400 mb-4">
+            The chart below provides a visual representation of the top 20 wallets by the total token amounts received. It helps to identify patterns, such as wallets receiving an unusually large proportion of tokens or those with irregular transaction activity.
+          </p>
+          <canvas id="transactionChart" class="w-full h-64"></canvas>
+        </section>
+      
+        <section id="conclusion2">
+          <h3 class="text-md font-semibold text-gray-200 mb-2">Detailed Wallet Insights</h3>
+          <p class="text-gray-400">
+            This section provides insights into the token distribution across the top 20 wallets. It highlights total amounts received per wallet and flags any wallets with unusual token accumulation or distribution patterns that could indicate potential issues.
+          </p>
+        </section>
+      </section>
+      
+      <section id="conclusion3" class="hidden mt-8 p-8 bg-gray-800 rounded-lg shadow-lg border-l-4 border-green-500">
+        <h2 class="text-lg font-semibold text-white">Analysis of Top 20 Wallets by Total Token Amount</h2>
+        <p class="text-gray-300 mt-2">
+          This section reviews the top 20 wallets that have received the largest total amounts of the token created by this contract. These totals are calculated based on all transactions to each wallet, regardless of whether they involve a single large transfer or multiple smaller ones. The goal is to identify any unusual concentration of tokens that might indicate suspicious activity.
+        </p>
+      
+        <section id="transactionChartSection" class="hidden mb-12">
+          <h3 class="text-md font-semibold text-gray-200 mb-2">Top Wallets Overview</h3>
+          <p class="text-gray-400 mb-4">
+            The chart below provides a visual representation of the top 20 wallets by the total token amounts received. It helps to identify patterns, such as wallets receiving an unusually large proportion of tokens or those with irregular transaction activity.
+          </p>
+          <canvas id="transactionChart" class="w-full h-64"></canvas>
+        </section>
+      
+        <section id="conclusion2">
+          <h3 class="text-md font-semibold text-gray-200 mb-2">Detailed Wallet Insights</h3>
+          <p class="text-gray-400">
+            This section provides insights into the token distribution across the top 20 wallets. It highlights total amounts received per wallet and flags any wallets with unusual token accumulation or distribution patterns that could indicate potential issues.
+          </p>
+        </section>
+      </section>
+      
+      
+      <!-- ========== DEEL-SECTIE (SHARE SECTION) ========== -->
+ 
+      <!-- END DEEL-SECTIE -->
+
+      <!-- ========== CONTRACT CODE SECTION (Hidden on Page Load) ========== -->
+      <section id="contractCodeSection" class="hidden mt-8 mb-8">
+        <details class="group">
+          <summary class="cursor-pointer bg-gray-800 p-4 rounded-lg shadow-lg flex items-center justify-between">
+            <span class="text-xl font-bold text-green-400">View Contract Code</span>
+            <i class="fas fa-chevron-down transform transition-transform duration-300 group-open:rotate-180"></i>
+          </summary>
+          <div class="mt-4 bg-gray-700 p-4 rounded-lg overflow-x-auto">
+            <pre class="line-numbers"><code id="contractCode" class="language-solidity" style="font-family: 'Fira Code', monospace;">
+// Contract code will be inserted here
+            </code></pre>
+          </div>
+        </details>
+      </section>
+      <!-- END CONTRACT CODE SECTION -->
+    </div> <!-- END MAIN CONTENT -->
+
+    <!-- Footer -->
+    <footer class="mt-12 text-center text-gray-500">
+      &copy; 2025 CRYPTOSAURUS. All rights reserved.
+    </footer>
+
+    <!-- Modal Owner Rights -->
+    <div id="modal-owner-rights" class="modal">
+      <div class="modal-content">
+        <span
+          class="close-modal"
+          onclick="closeModal('modal-owner-rights')"
+        >&times;</span>
+        <h2 class="text-2xl font-bold neon-text mb-4">
+          Owner Rights Details
+        </h2>
+        <ul class="list-disc list-inside text-gray-300">
+          <li><strong>Full Control Over Token Supply:</strong> The owner can manage and distribute all tokens, including minting and burning tokens.</li>
+          <li><strong>Unlimited Minting:</strong> Ability to create new tokens without restrictions, which can increase the total supply and potentially affect the value.</li>
+          <li><strong>Contract Adjustments:</strong> The owner can adjust critical parameters of the contract, such as tax rates, maximum token amounts, or other key functions.</li>
+        </ul>
+        <p class="text-gray-300 mt-4">
+          These rights can lead to centralization risks, such as market manipulation or loss of trust among users. It is essential that these rights are managed carefully and that there are transparent mechanisms for oversight.
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- END WRAPPER -->
+
+  <!-- ========== SCRIPTS ========== -->
+  <script>
+    // Toggle navigation menu on small screens
+    document.getElementById('nav-toggle').addEventListener('click', function () {
+      document.getElementById('nav-content').classList.toggle('hidden');
+    });
+
+    // Modals
+    function openModal(modalId) {
+      document.getElementById(modalId).style.display = 'block';
+    }
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+    }
+    window.onclick = function (event) {
+      const modals = document.querySelectorAll('.modal');
+      modals.forEach((modal) => {
+        if (event.target == modal) {
+          modal.style.display = 'none';
+        }
+      });
+    };
+
+    // Variables to store audit data and charts
+    let auditData = null;
+    let statusChart = null;
+    let transactionChartInstance = null; // New Chart instance for Transaction Chart
+
+    // Variable to store current contract address
+    let currentContractAddress = '';
+
+    // Helper: format large numbers (9999999 -> 9,999,999)
+    function formatLargeNumber(numStr) {
+      if (typeof numStr !== 'string') return numStr;
+      return numStr.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    // ========== Render Token Info ==========
+    /**
+     * Render token information including renounce and proxy admin status.
+     * @param {Object} token - The token data.
+     * @param {string} renounceStatus - The ownership renouncement status.
+     * @param {string} proxyAdminStatus - The proxy admin status.
+     */
+    function renderTokenInfo(token, renounceStatus, proxyAdminStatus) {
+      const tokenName = document.getElementById('token-name');
+      const tokenSymbol = document.getElementById('token-symbol');
+      const tokenNameInfo = document.getElementById('token-name-info');
+      const tokenSymbolInfo = document.getElementById('token-symbol-info');
+      const tokenDecimalsInfo = document.getElementById('token-decimals-info');
+      const tokenRenouncedInfo = document.getElementById('token-renounced-info');
+      const proxyAdminInfo = document.getElementById('proxy-admin-info');
+
+      if (tokenName) tokenName.textContent = token.name || '-';
+      if (tokenSymbol) tokenSymbol.textContent = token.symbol || '-';
+      if (tokenNameInfo) tokenNameInfo.textContent = token.name || '-';
+      if (tokenSymbolInfo) tokenSymbolInfo.textContent = token.symbol || '-';
+      if (tokenDecimalsInfo) tokenDecimalsInfo.textContent = token.decimals || '-';
+
+      // Ownership Renounced Status
+      if (tokenRenouncedInfo) {
+        tokenRenouncedInfo.textContent = renounceStatus || 'Unknown';
+      }
+
+      // Proxy Admin Status
+      if (proxyAdminInfo) {
+        proxyAdminInfo.textContent = proxyAdminStatus || 'Unknown';
+      }
+    }
+
+    // ========== Render Badges (AI/Human) ==========
+    function renderAuditBadges(auditByAIBadge, auditByHumanBadge) {
+      const badgesContainer = document.getElementById('auditBadges');
+      badgesContainer.innerHTML = '';
+
+      if (auditByAIBadge) {
+        const aiBadge = document.createElement('span');
+        aiBadge.className =
+          'badge badge-ai bg-blue-600 text-white px-3 py-1 rounded-full flex items-center space-x-1';
+        aiBadge.innerHTML = `<i class="fas fa-robot"></i> <span>Audit by AI</span>`;
+        badgesContainer.appendChild(aiBadge);
+      }
+
+      if (auditByHumanBadge) {
+        const humanBadge = document.createElement('span');
+        humanBadge.className =
+          'badge badge-human bg-purple-600 text-white px-3 py-1 rounded-full flex items-center space-x-1';
+        humanBadge.innerHTML = `<i class="fas fa-user"></i> <span>Audit by Human</span>`;
+        badgesContainer.appendChild(humanBadge);
+      }
+    }
+
+    // ========== Render/Update Status Chart ==========
+    function renderOrUpdateChart(problems, ok) {
+      const ctx = document.getElementById('statusChart').getContext('2d');
+
+      if (statusChart) {
+        statusChart.data.datasets[0].data = [problems, ok];
+        statusChart.update();
+      } else {
+        statusChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Problems', 'OK'],
+            datasets: [
+              {
+                data: [problems, ok],
+                backgroundColor: ['#EF4444', '#10B981'],
+                hoverBackgroundColor: ['#DC2626', '#059669'],
+                borderWidth: 1
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: {
+                  color: '#e5e7eb'
+                }
+              },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    const label = context.label || '';
+                    const value = context.parsed || 0;
+                    return `${label}: ${value}`;
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+    }
+
+    // ========== Render Conclusion ==========
+    function renderConclusion(conclusion) {
+      const container = document.getElementById('conclusion');
+      container.innerHTML = '';
+
+      if (!conclusion || !conclusion.summary) {
+        container.innerHTML = `
+          <div class="bg-red-800 text-white p-6 rounded-lg shadow-lg">
+            <p>Error loading the audit conclusion.</p>
+          </div>
+        `;
+        return;
+      }
+
+      const summary = document.createElement('p');
+      summary.className = 'mb-6 text-xl text-gray-200';
+      summary.innerHTML = `<strong>Summary:</strong> ${conclusion.summary || 'No summary available.'}`;
+      container.appendChild(summary);
+
+      if (conclusion.dangers && conclusion.dangers.length > 0) {
+        const recContainer = document.createElement('div');
+        recContainer.className = 'mb-6 text-gray-200';
+        recContainer.innerHTML = '<strong>Dangers:</strong>';
+        const recList = document.createElement('ul');
+        recList.className = 'list-disc list-inside mt-2 text-gray-300';
+
+        conclusion.dangers.forEach((rec) => {
+          const li = document.createElement('li');
+          li.textContent = rec;
+          recList.appendChild(li);
+        });
+
+        recContainer.appendChild(recList);
+        container.appendChild(recContainer);
+      }
+
+      const comments = document.createElement('p');
+      comments.className = 'mb-6 text-gray-200';
+      comments.innerHTML = `<strong>Comments:</strong> ${conclusion.comments || 'No comments available.'}`;
+      container.appendChild(comments);
+
+      const riskScore = document.createElement('p');
+      riskScore.className = 'text-xl text-gray-200';
+      riskScore.innerHTML = `<strong>Total Risk Score:</strong> <span id="total-risk">${conclusion.totalRiskScore || 'N/A'}</span>`;
+      container.appendChild(riskScore);
+    }
+
+    // Helper: Flag icon (OK or Problem)
+    function getFlagElement(item) {
+      const isRedFlag = item.redFlag.toLowerCase() === 'true';
+      let colorClass = '';
+      let iconClass = '';
+      let label = '';
+
+      if (isRedFlag) {
+        colorClass = 'text-red-500';
+        iconClass = 'fa-exclamation-triangle';
+        label = 'Problem';
+      } else {
+        colorClass = 'text-green-500';
+        iconClass = 'fa-check-circle';
+        label = 'OK';
+      }
+
+      return `
+        <div class="tooltip flex-shrink-0">
+          <span class="inline-flex items-center justify-center w-6 h-6 rounded-full ${colorClass} border border-gray-700">
+            <i class="fas ${iconClass}"></i>
+          </span>
+          <span class="tooltiptext">${label}</span>
+        </div>
+      `;
+    }
+
+    // ========== Render Audit Checklist ==========
+    function renderAuditChecklist(checklist) {
+      const checklistContainer = document.getElementById('auditChecklist');
+      checklistContainer.innerHTML = '';
+
+      let totalProblems = 0;
+      let totalOK = 0;
+
+      for (const category in checklist) {
+        const items = checklist[category];
+        const categorySection = document.createElement('div');
+        categorySection.className = 'bg-gray-900 p-6 rounded-lg shadow-md transition duration-300';
+
+        const categoryTitle = document.createElement('h2');
+        categoryTitle.className = 'text-2xl font-bold mb-4 border-b pb-2 border-gray-700 capitalize neon-text';
+        categoryTitle.textContent = category;
+        categorySection.appendChild(categoryTitle);
+
+        const itemsList = document.createElement('div');
+        itemsList.className = 'space-y-4';
+
+        for (const itemKey in items) {
+          const item = items[itemKey];
+
+          if (item.redFlag.toLowerCase() === 'true') totalProblems++;
+          else totalOK++;
+
+          const itemSection = document.createElement('div');
+          itemSection.className =
+            'bg-gray-800 p-4 rounded-lg shadow-inner flex flex-col transform hover:shadow-lg transition-shadow duration-300 audit-item';
+
+          const itemHeader = document.createElement('div');
+          itemHeader.className = 'flex items-center justify-between cursor-pointer';
+
+          const notApplicableLabel = item.notApplicable
+            ? '<span class="ml-2 px-2 py-1 bg-yellow-500 text-xs rounded">Not applicable</span>'
+            : '';
+
+          itemHeader.innerHTML = `
+            <div class="flex items-center space-x-3">
+              ${getFlagElement(item)}
+              <span class="font-medium text-lg">${item.description || 'No description available.'}</span>
+              ${notApplicableLabel}
+            </div>
+            <i class="fas fa-chevron-down toggle-icon"></i>
+          `;
+
+          const itemContent = document.createElement('div');
+          itemContent.className = 'mt-4 hidden';
+          itemContent.innerHTML = `
+            <div class="flex items-start space-x-2">
+              <i class="fas fa-comment-alt text-green-500 mt-1"></i>
+              <div class="bg-gray-700 p-3 rounded-lg w-full">
+                <p class="text-gray-200"><strong>Comments:</strong> ${item.comment || 'No comments available.'}</p>
+              </div>
+            </div>
+          `;
+
+          itemHeader.addEventListener('click', () => {
+            const isHidden = itemContent.classList.contains('hidden');
+            if (isHidden) {
+              itemContent.classList.remove('hidden');
+              itemHeader.querySelector('.toggle-icon').classList.add('rotate-180');
+            } else {
+              itemContent.classList.add('hidden');
+              itemHeader.querySelector('.toggle-icon').classList.remove('rotate-180');
+            }
+          });
+
+          itemSection.appendChild(itemHeader);
+          itemSection.appendChild(itemContent);
+          itemsList.appendChild(itemSection);
+        }
+
+        categorySection.appendChild(itemsList);
+        checklistContainer.appendChild(categorySection);
+      }
+
+      // Update KPI
+      document.getElementById('total-problems').textContent = totalProblems;
+      const totalRiskElement = document.getElementById('total-risk');
+      if (totalRiskElement && auditData?.finalTemplate?.conclusion?.totalRiskScore != null) {
+        totalRiskElement.textContent = auditData.finalTemplate.conclusion.totalRiskScore;
+      }
+
+      renderOrUpdateChart(totalProblems, totalOK);
+    }
+
+    // ========== Render Audit Checklist ==========
+    function renderAuditChecklist(checklist) {
+      const checklistContainer = document.getElementById('auditChecklist');
+      checklistContainer.innerHTML = '';
+
+      let totalProblems = 0;
+      let totalOK = 0;
+
+      for (const category in checklist) {
+        const items = checklist[category];
+        const categorySection = document.createElement('div');
+        categorySection.className = 'bg-gray-900 p-6 rounded-lg shadow-md transition duration-300';
+
+        const categoryTitle = document.createElement('h2');
+        categoryTitle.className = 'text-2xl font-bold mb-4 border-b pb-2 border-gray-700 capitalize neon-text';
+        categoryTitle.textContent = category;
+        categorySection.appendChild(categoryTitle);
+
+        const itemsList = document.createElement('div');
+        itemsList.className = 'space-y-4';
+
+        for (const itemKey in items) {
+          const item = items[itemKey];
+
+          if (item.redFlag.toLowerCase() === 'true') totalProblems++;
+          else totalOK++;
+
+          const itemSection = document.createElement('div');
+          itemSection.className =
+            'bg-gray-800 p-4 rounded-lg shadow-inner flex flex-col transform hover:shadow-lg transition-shadow duration-300 audit-item';
+
+          const itemHeader = document.createElement('div');
+          itemHeader.className = 'flex items-center justify-between cursor-pointer';
+
+          const notApplicableLabel = item.notApplicable
+            ? '<span class="ml-2 px-2 py-1 bg-yellow-500 text-xs rounded">Not applicable</span>'
+            : '';
+
+          itemHeader.innerHTML = `
+            <div class="flex items-center space-x-3">
+              ${getFlagElement(item)}
+              <span class="font-medium text-lg">${item.description || 'No description available.'}</span>
+              ${notApplicableLabel}
+            </div>
+            <i class="fas fa-chevron-down toggle-icon"></i>
+          `;
+
+          const itemContent = document.createElement('div');
+          itemContent.className = 'mt-4 hidden';
+          itemContent.innerHTML = `
+            <div class="flex items-start space-x-2">
+              <i class="fas fa-comment-alt text-green-500 mt-1"></i>
+              <div class="bg-gray-700 p-3 rounded-lg w-full">
+                <p class="text-gray-200"><strong>Comments:</strong> ${item.comment || 'No comments available.'}</p>
+              </div>
+            </div>
+          `;
+
+          itemHeader.addEventListener('click', () => {
+            const isHidden = itemContent.classList.contains('hidden');
+            if (isHidden) {
+              itemContent.classList.remove('hidden');
+              itemHeader.querySelector('.toggle-icon').classList.add('rotate-180');
+            } else {
+              itemContent.classList.add('hidden');
+              itemHeader.querySelector('.toggle-icon').classList.remove('rotate-180');
+            }
+          });
+
+          itemSection.appendChild(itemHeader);
+          itemSection.appendChild(itemContent);
+          itemsList.appendChild(itemSection);
+        }
+
+        categorySection.appendChild(itemsList);
+        checklistContainer.appendChild(categorySection);
+      }
+
+      // Update KPI
+      document.getElementById('total-problems').textContent = totalProblems;
+      const totalRiskElement = document.getElementById('total-risk');
+      if (totalRiskElement && auditData?.finalTemplate?.conclusion?.totalRiskScore != null) {
+        totalRiskElement.textContent = auditData.finalTemplate.conclusion.totalRiskScore;
+      }
+
+      renderOrUpdateChart(totalProblems, totalOK);
+    }
+
+    // ========== FILTERS ==========
+    const filterAllBtn = document.getElementById('filter-all');
+    const filterProblemBtn = document.getElementById('filter-problem');
+    const filterOkBtn = document.getElementById('filter-ok');
+
+    filterAllBtn.addEventListener('click', () => applyFilter('all'));
+    filterProblemBtn.addEventListener('click', () => applyFilter('problem'));
+    filterOkBtn.addEventListener('click', () => applyFilter('ok'));
+
+    function applyFilter(filter) {
+      if (!auditData) {
+        console.error('Audit data is not loaded yet.');
+        return;
+      }
+
+      const originalChecklist = auditData.finalTemplate.contractAuditChecklist;
+      let filteredChecklist = {};
+
+      for (const category in originalChecklist) {
+        const items = originalChecklist[category];
+        for (const itemKey in items) {
+          const item = items[itemKey];
+
+          let include = false;
+          if (filter === 'all') include = true;
+          if (filter === 'problem' && item.redFlag.toLowerCase() === 'true') include = true;
+          if (filter === 'ok' && item.redFlag.toLowerCase() !== 'true') include = true;
+
+          if (include) {
+            if (!filteredChecklist[category]) {
+              filteredChecklist[category] = {};
+            }
+            filteredChecklist[category][itemKey] = item;
+          }
+        }
+      }
+
+      renderAuditChecklist(filteredChecklist);
+      renderConclusion(auditData.finalTemplate.conclusion);
+    }
+
+    // ========== SHARE: Tekst genereren ==========
+    function getShareText() {
+      const name = document.getElementById('token-name').textContent;
+      const symbol = document.getElementById('token-symbol').textContent;
+      const problems = document.getElementById('total-problems').textContent;
+      const riskScore = document.getElementById('total-risk').textContent;
+      const contractAddress = currentContractAddress;
+
+      // Create a message with the contract address included:
+      return `Check out the audit results for ${name} (${symbol})!
+Contract Address: ${contractAddress}
+Total Problems: ${problems}
+Risk Score: ${riskScore}
+Audit link: ${window.location.href}`;
+    }
+
+    function updateShareLinks() {
+      const shareText = getShareText();
+      const shareUrl = window.location.href;
+
+      // Telegram
+      const telegramLink = document.getElementById('share-telegram');
+      telegramLink.href = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`;
+
+      // X (Twitter)
+      const twitterLink = document.getElementById('share-twitter');
+      twitterLink.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
+
+      // Facebook
+      const facebookLink = document.getElementById('share-facebook');
+      facebookLink.href = `https://www.facebook.com/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`;
+    }
+
+    // Discord: copy to clipboard
+    function copyDiscordShareText() {
+      const textToCopy = getShareText();
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        alert('Audit-info gekopieerd! Plak het nu in Discord.');
+      });
+    }
+
+    // ========== FETCH TRANSACTION ANALYSIS ==========
+    /**
+     * Fetch transaction analysis data and render the chart and risk score.
+     * @param {string} contractAddress - The Ethereum contract address.
+     */
+    function fetchTransactionAnalysis(contractAddress) {
+      fetch(`http://localhost:3001/api/analyze-transfers/${contractAddress}`)
+        .then((res) => {
+          if (!res.ok) {
+            return res.json().then((errorData) => {
+              const error = errorData.error || errorData.message || 'Network response was not ok';
+              throw new Error(error);
+            });
+          }
+          return res.json();
+        })
+        .then((data) => {
+          console.log('Transaction analysis data received:', data);
+          
+          // Render the transaction chart
+          if (data.top20Wallets && data.top20Wallets.length > 0) {
+            renderTransactionChart(data.top20Wallets);
+            document.getElementById('transactionChartSection').classList.remove('hidden');
+          } else {
+            document.getElementById('transactionChartSection').innerHTML = `
+              <div class="bg-yellow-600 text-gray-800 p-6 rounded-lg shadow-lg">
+                <p>No transaction data available.</p>
+              </div>
+            `;
+            document.getElementById('transactionChartSection').classList.remove('hidden');
+          }
+
+          // Render the risk score
+        
+
+          // Optionally, display the ChatGPT assessment
+          if (data.chatGPTAssessment) {
+            displayAssessment(data.chatGPTAssessment);
+          }
+
+          // Update share links after transaction analysis
+          updateShareLinks();
+        })
+        .catch((err) => {
+          console.error('Error fetching transaction analysis:', err);
+          // Show error message
+          document.getElementById('transactionChartSection').innerHTML = `
+            <div class="bg-red-800 text-white p-6 rounded-lg shadow-lg">
+              <p>Error loading transaction analysis data: ${err.message}</p>
+            </div>
+          `;
+          document.getElementById('transactionChartSection').classList.remove('hidden');
+
+          document.getElementById('riskScoreSection').innerHTML = `
+            <div class="bg-red-800 text-white p-6 rounded-lg shadow-lg">
+              <p>Error loading risk score.</p>
+            </div>
+          `;
+          document.getElementById('riskScoreSection').classList.remove('hidden');
+
+          // Hide the share section if there's an error
+          document.getElementById('share-section').classList.add('hidden');
+        });
+    }
+
+    // ========== FETCH TRANSACTION CHART ==========
+    /**
+     * Render the top 20 wallets in a Chart.js bar chart.
+     * @param {Array} top20Wallets - Array of top 20 wallet objects.
+     */
+  /**
+ * Render the top 20 wallets in a Chart.js bar chart, displaying the name if available, else the address.
+ * Enables clicking on a bar to open the wallet address on Etherscan in a new tab.
+ * @param {Array} top20Wallets - Array of top 20 wallet objects.
+ */
+function renderTransactionChart(top20Wallets) {
+  const ctx = document.getElementById('transactionChart').getContext('2d');
+
+  // Generate display labels: name if available, else address
+  const displayLabels = top20Wallets.map(wallet => wallet.name ? wallet.name : wallet.address);
+
+  const data = top20Wallets.map(wallet => wallet.totalTokens);
+
+  // Shorten labels for readability while maintaining a reference to the full address
+  const shortenedLabels = displayLabels.map((label, index) => {
+    if (walletsHaveNames(top20Wallets)) {
+      return label; // If most wallets have names, display them fully
+    } else {
+      // If names are sparse, only show names or a shortened address
+      return top20Wallets[index].name ? label : `${label.slice(0, 6)}...${label.slice(-4)}`;
+    }
+  });
+
+  // Destroy existing chart instance if it exists to prevent duplication
+  if (transactionChartInstance) {
+    transactionChartInstance.destroy();
+  }
+
+  // Create the bar chart
+  transactionChartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: shortenedLabels,
+      datasets: [{
+        label: 'Total Tokens Received',
+        data: data,
+        backgroundColor: 'rgba(16, 185, 129, 0.6)',
+        borderColor: 'rgba(16, 185, 129, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: false
+        },
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              const value = context.parsed.y;
+              const wallet = top20Wallets[context.dataIndex];
+              return `Total Tokens: ${formatLargeNumber(value.toFixed(2))}`;
+            },
+            title: function(context) {
+              const wallet = top20Wallets[context[0].dataIndex];
+              return wallet.name ? wallet.name : wallet.address;
+            },
+            afterLabel: function(context) {
+              const wallet = top20Wallets[context.dataIndex];
+              return `Address: ${wallet.address}`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: {
+            maxRotation: 90,
+            minRotation: 45, // Adjust rotation as needed
+            callback: function(value, index) {
+              const wallet = top20Wallets[index];
+              return wallet.name ? wallet.name : `${wallet.address.slice(0, 6)}...${wallet.address.slice(-4)}`;
+            },
+            color: '#e5e7eb' // Ensure the label text is visible against the dark background
+          }
+        },
+        y: {
+          beginAtZero: true,
+          ticks: {
+            callback: function(value) {
+              return formatLargeNumber(value);
+            },
+            color: '#e5e7eb' // Ensure the y-axis labels are visible
+          }
+        }
+      },
+      // Add the onClick handler to navigate to Etherscan
+      onClick: (event, elements) => {
+        if (elements.length > 0) {
+          // Get the first element that was clicked
+          const element = elements[0];
+          const index = element.index;
+
+          // Retrieve the corresponding wallet address
+          const walletAddress = top20Wallets[index].address;
+
+          // Construct the Etherscan URL
+          const etherscanUrl = `https://etherscan.io/address/${walletAddress}`;
+
+          // Open the URL in a new tab
+          window.open(etherscanUrl, '_blank');
+        }
+      },
+      // Change cursor to pointer when hovering over bars
+      onHover: (event, elements) => {
+        event.native.target.style.cursor = elements.length ? 'pointer' : 'default';
+      }
+    }
+  });
+}
+
+/**
+ * Helper function to determine if wallets have names.
+ * Returns true if more than half of the wallets have a name.
+ * @param {Array} wallets - Array of wallet objects.
+ * @returns {boolean}
+ */
+function walletsHaveNames(wallets) {
+  const namedWallets = wallets.filter(wallet => wallet.name);
+  return namedWallets.length > wallets.length / 2;
+}
+
+    // ========== Render Risk Score ==========
+    /**
+     * Render the overall risk score in a circular indicator.
+     * @param {number} score - The risk score (0 to 10).
+     */
+    function renderRiskScore(score) {
+      const riskScoreValue = document.getElementById('riskScoreValue');
+      riskScoreValue.textContent = score;
+
+      const riskScoreCircle = document.getElementById('riskScoreCircle');
+
+      // Calculate the percentage for the conic-gradient
+      let percentage = (score / 10) * 100;
+      if (percentage > 100) percentage = 100;
+
+      riskScoreCircle.style.background = `conic-gradient(#10B981 ${percentage}%, #EF4444 ${percentage}% 100%)`;
+    }
+
+    // Function to display the ChatGPT assessment
+    function displayAssessment(assessment) {
+      const conclusionSection = document.getElementById('conclusion2');
+      conclusionSection.innerHTML += `
+        <div class="bg-gray-800 rounded-lg shadow-lg mt-8">
+          <h2 class="text-2xl font-bold neon-text mb-4">Conclusion</h2>
+          <p class="text-gray-200">${assessment}</p>
+        </div>
+      `;
+    }
+
+    // ========== FETCH DATA ==========
+    /**
+     * Fetch audit data and render relevant sections.
+     * @param {string} addr - The Ethereum contract address.
+     */
+    function fetchAuditData(addr) {
+      // Validate address
+      const isValidAddress = /^0x[a-fA-F0-9]{40}$/.test(addr);
+      if (!isValidAddress) {
+        alert('Please enter a valid Ethereum contract address (0x...).');
+        return;
+      }
+
+      // Show loader, hide content
+      document.getElementById('loading').classList.remove('hidden');
+      document.getElementById('main-content').classList.add('hidden');
+
+      let url = `/api/audit/${addr}`; // Correct API endpoint
+
+      fetch(url)
+        .then((res) => {
+          if (!res.ok) {
+            return res.json().then((errorData) => {
+              const error =
+                errorData.error || errorData.message || 'Network response was not ok';
+              throw new Error(error);
+            });
+          }
+          return res.json();
+        })
+        .then((data) => {
+          console.log('Audit data received:', data);
+          auditData = data;
+
+          if (!data.finalTemplate || !data.finalTemplate.conclusion) {
+            throw new Error('Audit data is incomplete or incorrect.');
+          }
+
+          // Store the current contract address
+          currentContractAddress = addr;
+
+          // Update the browser's URL to include the contract address
+          history.pushState(null, '', `/${addr}`);
+
+          // Render the token info
+          if (data.tokenData) {
+            renderTokenInfo(data.tokenData, data.renounceStatus, data.proxyAdminStatus);
+            document.getElementById('tokenInfo').classList.remove('hidden');
+          } else {
+            document.getElementById('tokenInfo').innerHTML = `
+              <div class="bg-yellow-600 text-gray-800 p-6 rounded-lg shadow-lg">
+                <p>Token information is missing or not properly loaded in the audit data.</p>
+              </div>
+            `;
+            document.getElementById('tokenInfo').classList.remove('hidden');
+          }
+
+          // Badges
+          renderAuditBadges(
+            data.finalTemplate.auditByAIBadge,
+            data.finalTemplate.auditByHumanBadge
+          );
+
+          // Checklist & Conclusion
+          if (data.finalTemplate.contractAuditChecklist) {
+            renderAuditChecklist(data.finalTemplate.contractAuditChecklist);
+            document.getElementById('auditChecklist').classList.remove('hidden');
+            document.getElementById('kpi-chart-section').classList.remove('hidden');
+            document.getElementById('filter-buttons').classList.remove('hidden');
+            document.getElementById('conclusion').classList.remove('hidden');
+            document.getElementById('conclusion3').classList.remove('hidden');
+
+          } else {
+            document.getElementById('auditChecklist').innerHTML = `
+              <div class="bg-yellow-600 text-gray-800 p-6 rounded-lg shadow-lg">
+                <p>The audit checklist is missing in the audit data.</p>
+              </div>
+            `;
+            document.getElementById('auditChecklist').classList.remove('hidden');
+          }
+          renderConclusion(data.finalTemplate.conclusion);
+
+          // Render the contract code
+          if (data.contract) {
+            const contractCodeElement = document.getElementById('contractCode');
+            if (contractCodeElement) {
+              const beautifiedCode = js_beautify(data.contract, {
+                indent_size: 2,
+                space_in_empty_paren: true
+              });
+              contractCodeElement.textContent = beautifiedCode;
+              Prism.highlightElement(contractCodeElement);
+              document.getElementById('contractCodeSection').classList.remove('hidden');
+            }
+          }
+
+          // After rendering audit data: Fetch transaction analysis
+          fetchTransactionAnalysis(addr);
+
+          // After rendering all data: Show Share section and update links
+          document.getElementById('share-section').classList.remove('hidden');
+          updateShareLinks();
+
+          // Hide loader, show main content
+          document.getElementById('loading').classList.add('hidden');
+          document.getElementById('main-content').classList.remove('hidden');
+
+          // Hide hero
+          document.getElementById('hero-section').classList.add('hidden');
+        })
+        .catch((err) => {
+          console.error('Error:', err);
+          // Show error message
+          document.getElementById('auditChecklist').innerHTML = `
+            <div class="bg-red-800 text-white p-6 rounded-lg shadow-lg">
+              <p>Error loading audit data: ${err.message}</p>
+            </div>
+          `;
+          document.getElementById('tokenInfo').innerHTML = `
+            <div class="bg-red-800 text-white p-6 rounded-lg shadow-lg">
+              <p>Error loading token information.</p>
+            </div>
+          `;
+          document.getElementById('total-problems').textContent = '0';
+          document.getElementById('total-risk').textContent = '0';
+          if (statusChart) {
+            statusChart.destroy();
+            statusChart = null;
+          }
+          if (transactionChartInstance) {
+            transactionChartInstance.destroy();
+            transactionChartInstance = null;
+          }
+          document.getElementById('statusChart').style.display = 'none';
+          document.getElementById('transactionChart').style.display = 'none';
+          document.getElementById('riskScoreCircle').style.display = 'none';
+          document.getElementById('conclusion').innerHTML = '';
+          // Hide the share section if there's an error
+          document.getElementById('share-section').classList.add('hidden');
+
+          // Hide loader, show content
+          document.getElementById('loading').classList.add('hidden');
+          document.getElementById('main-content').classList.remove('hidden');
+        });
+    }
+
+    // Event: Get Audit click
+    const fetchAuditButton = document.getElementById('fetch-audit');
+    fetchAuditButton.addEventListener('click', () => {
+      const address = document.getElementById('contract-address').value.trim();
+      if (!address) {
+        alert('Please enter a valid contract address.');
+        return;
+      }
+      fetchAuditData(address);
+    });
+
+    // Discord button event
+    const discordButton = document.getElementById('share-discord');
+    discordButton.addEventListener('click', copyDiscordShareText);
+
+    // ========== SHARE FUNCTIONS ==========
+    // These functions ensure that share messages include the contract address and updated URL.
+
+    // Function to generate share text
+    function getShareText() {
+      const name = document.getElementById('token-name').textContent;
+      const symbol = document.getElementById('token-symbol').textContent;
+      const problems = document.getElementById('total-problems').textContent;
+      const riskScore = document.getElementById('total-risk').textContent;
+      const contractAddress = currentContractAddress;
+
+      // Create a message with the contract address included:
+      return `Check out the audit results for ${name} (${symbol})!
+Contract Address: ${contractAddress}
+Total Problems: ${problems}
+Risk Score: ${riskScore}
+Audit link: ${window.location.href}`;
+    }
+
+    // Function to update share links
+    function updateShareLinks() {
+      const shareText = getShareText();
+      const shareUrl = window.location.href;
+
+      // Telegram
+      const telegramLink = document.getElementById('share-telegram');
+      telegramLink.href = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`;
+
+      // X (Twitter)
+      const twitterLink = document.getElementById('share-twitter');
+      twitterLink.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
+
+      // Facebook
+      const facebookLink = document.getElementById('share-facebook');
+      facebookLink.href = `https://www.facebook.com/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`;
+    }
+
+    // Discord: copy to clipboard
+    function copyDiscordShareText() {
+      const textToCopy = getShareText();
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        alert('Audit-info gekopieerd! Plak het nu in Discord.');
+      });
+    }
+
+    // ========== INITIATE AUDIT ON PAGE LOAD IF URL HAS Contract Address ==========
+    window.addEventListener('load', () => {
+      const path = window.location.pathname;
+      const addressMatch = path.match(/^\/(0x[a-fA-F0-9]{40})$/);
+      if (addressMatch) {
+        const address = addressMatch[1];
+        document.getElementById('contract-address').value = address;
+        fetchAuditData(address);
+      }
+    });
+
+    // ========== HANDLE BROWSER NAVIGATION (Back/Forward) ==========
+    window.addEventListener('popstate', (event) => {
+      const path = window.location.pathname;
+      const addressMatch = path.match(/^\/(0x[a-fA-F0-9]{40})$/);
+      if (addressMatch) {
+        const address = addressMatch[1];
+        document.getElementById('contract-address').value = address;
+        fetchAuditData(address);
+      } else {
+        // Handle cases where the path does not include a contract address
+        // For example, show the hero section again
+        document.getElementById('hero-section').classList.remove('hidden');
+        // Hide other sections if necessary
+        document.getElementById('main-content').classList.add('hidden');
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('share-section').classList.add('hidden');
+        document.getElementById('transactionChartSection').classList.add('hidden');
+        document.getElementById('riskScoreSection').classList.add('hidden');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,307 @@
+{
+    "auditByAIBadge": true,
+    "auditByHumanBadge": true,
+    "token": {
+      "name": "{{Token Name}}",
+      "symbol": "{{Token Symbol}}",
+      "decimals": "{{Number of Decimals}}",
+      "totalSupply": "{{Total Supply}}"
+    },
+    "contractAuditChecklist": {
+      "tokenDistribution": {
+        "ownerReceivesAllTokens": {
+          "description": "Check if all tokens go straight to the owner and what that means for fairness and decentralization.",
+          "instruction": "1. Find where tokens are given to the owner in the code. 2. See how much goes to the owner vs. community. 3. Check if there are rules to delay the owner's selling of tokens. 4. Compare this with the project's promises. 5. Think about how concentration of tokens with the owner affects fairness.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on token distribution, including any potential risks or commendable practices}}"
+        },
+        "transparentDistributionMechanism": {
+          "description": "Make sure there's a clear and fair way to distribute tokens that everyone can see.",
+          "instruction": "1. Look for functions that handle ICOs, airdrops, or pools. 2. Confirm these functions are available to everyone, not just the owner. 3. Check if distribution details like prices and amounts are clear and fair. 4. Compare methods with industry best practices. 5. Verify that distribution actions are logged on the blockchain for transparency.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on the transparency and fairness of the distribution mechanisms}}"
+        }
+      },
+      "ownerPrivileges": {
+        "unlimitedMinting": {
+          "description": "See if the owner can make unlimited new tokens, which could hurt trust and lead to manipulation.",
+          "instruction": "1. Find all functions that create new tokens. 2. Check who is allowed to call these functions. 3. Look for any limits on how many tokens can be made. 4. See if new tokens are locked or released slowly. 5. Consider how unlimited minting affects value and stability.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on the minting capabilities and their implications on token economics and decentralization}}"
+        },
+        "accessToContractFunds": {
+          "description": "Check if the owner can easily take funds from the contract, which could be risky.",
+          "instruction": "1. Look for functions that withdraw or transfer funds. 2. Check who can call these functions and what limits exist. 3. Make sure withdrawals need approval from multiple parties. 4. Confirm that all withdrawals are logged on-chain for transparency.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on the owner's access to contract funds, highlighting any risks or protective measures}}"
+        },
+        "modifyContractParameters": {
+          "description": "Ensure the owner can't change important settings (like fees or limits) alone, which could hurt fairness.",
+          "instruction": "1. Find functions that change key settings. 2. Check who can call these functions. 3. Verify that changes need multiple approvals or community votes. 4. Look for delays before changes take effect. 5. Understand how these changes affect the contract and users.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on the ability to modify contract parameters, including governance controls and potential impacts}}"
+        },
+        "exclusiveUpgradeRights": {
+          "description": "See if only the owner can upgrade the contract, which could centralize control.",
+          "instruction": "1. Identify how the contract can be upgraded. 2. Check who has the power to upgrade. 3. Confirm that upgrades need community or multi-sig approval. 4. Ensure there are delays and transparent records of upgrades. 5. Consider how this affects trust and decentralization.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on upgrade rights, highlighting governance integration and potential centralization risks}}"
+        },
+        "ownershipRenunciation": {
+          "description": "Check that the owner can give up control, making the contract more decentralized.",
+          "instruction": "1. Look for a function that lets the owner renounce ownership. 2. Ensure only the owner can do this. 3. Confirm that once given up, ownership can't be taken back. 4. Check how renouncing affects contract operations. 5. Verify that the action is clearly recorded.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on ownership renunciation capabilities, including the effectiveness and impact of renouncing ownership}}"
+        },
+        "ownershipTransferMechanism": {
+          "description": "Ensure ownership can be transferred securely and transparently to prevent unauthorized takeovers.",
+          "instruction": "1. Find functions that transfer ownership. 2. Check that only the current owner can start the transfer. 3. Ensure the new owner must accept ownership. 4. Verify that transfers require multi-sig or DAO approval. 5. Confirm transfers are logged on-chain.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on the ownership transfer mechanisms, highlighting security measures and potential risks}}"
+        },
+        "freezeAccounts": {
+          "description": "Check if the owner can freeze accounts, which might be misused to stop trading.",
+          "instruction": "1. Look for functions that freeze or blacklist accounts. 2. Determine who can call these functions and if approvals are needed. 3. Assess if freezing is justified and limited. 4. Check if freezes are temporary and reviewed regularly. 5. Ensure freezing actions are logged for transparency.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on account freezing capabilities, including safeguards against misuse and transparency measures}}"
+        },
+        "selfDestruct": {
+          "description": "Ensure the owner cannot easily destroy the contract, which would harm stability and decentralization.",
+          "instruction": "1. Find functions that can permanently stop the contract. 2. Check who can call self-destruct and if approvals are needed. 3. Look for timelocks or delays before self-destruction. 4. Understand how self-destruct affects users and funds. 5. Confirm that the action is clearly recorded.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on the self-destruct functionality, including governance controls and potential risks}}"
+        }
+      },
+      "governance": {
+        "ownerDominatesVotes": {
+          "description": "Check if the owner holds too many votes, which could let them control decisions.",
+          "instruction": "1. Look at how voting power is given based on token holdings. 2. Determine the owner's share of votes. 3. Calculate if the owner has more than 50% of votes. 4. Check if there are limits on individual voting power. 5. Consider how concentrated voting power affects fairness.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on voting power distribution and the owner’s influence over governance decisions}}"
+        },
+        "daoGovernance": {
+          "description": "Make sure the contract uses a DAO model where all token holders can participate in decisions.",
+          "instruction": "1. Identify if a DAO structure is used in the contract. 2. Check that any token holder can submit proposals. 3. Look at how proposals are made, debated, and voted on. 4. Confirm there are rules to stop one person from controlling decisions. 5. Ensure all governance actions are open for review.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on the effectiveness and decentralization of the DAO governance model}}"
+        },
+        "governanceTransparency": {
+          "description": "Ensure that all governance steps are open and clear to all token holders.",
+          "instruction": "1. Verify that all proposals, discussions, and votes are recorded on-chain and can be viewed publicly. 2. Check for off-chain tools that explain governance processes. 3. Ensure guidelines on making and voting on proposals are clear. 4. Confirm mechanisms prevent cheating. 5. Ensure past decisions are accessible for review.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on the transparency and accessibility of governance processes}}"
+        }
+      },
+      "vestingAndLocks": {
+        "ownerTokenLock": {
+          "description": "Check that the owner's tokens are locked or released slowly to prevent sudden selling and market drops.",
+          "instruction": "1. Find where the contract locks the owner's tokens or sets up a release schedule. 2. Evaluate how long tokens are locked and how they are released. 3. Verify that the schedule can't be changed later by the owner. 4. Confirm that vesting actions are tracked on-chain. 5. Assess how this locking protects market stability.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on the token locking and vesting mechanisms, highlighting their effectiveness in mitigating risks}}"
+        },
+        "vestingMechanism": {
+          "description": "Ensure stakeholders have a schedule for gradual token release to maintain trust and market stability.",
+          "instruction": "1. Look for functions that set up token release schedules for stakeholders. 2. Check how long and how often tokens are released. 3. Verify schedules can't be changed by the owner alone. 4. Confirm vesting details are visible on-chain. 5. Evaluate how vesting prevents large sell-offs and builds trust.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on vesting mechanisms for stakeholders, including governance controls and market impact}}"
+        }
+      },
+      "hiddenRisks": {
+        "backdoorFunctions": {
+          "description": "Look for hidden or undocumented functions that give the owner special powers, which can be risky.",
+          "instruction": "1. Carefully review the entire code for any functions not mentioned in documentation. 2. Compare code with official docs to spot hidden features. 3. Check for special access restrictions and unusual private functions. 4. Identify functions that do critical things without proper documentation. 5. Use automated tools to find hidden or suspicious code. 6. If found, note that as a red flag.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on any identified backdoor functions, including their potential impact and recommendations for mitigation}}"
+        },
+        "manipulationRisk": {
+          "description": "Check if the owner can change settings to manipulate prices, fees, or transactions, risking integrity.",
+          "instruction": "1. Find functions that change key settings like fees or prices. 2. Ensure these can't be called by the owner alone; require multi-sig or governance. 3. Assess how changes affect the system and could be abused. 4. Look for limits or delays on such changes. 5. Confirm changes are transparent and need community approval if major.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on the risk of parameter manipulation, including the presence or absence of safeguards}}"
+        },
+        "roleEscalation": {
+          "description": "Ensure no one can give themselves extra powers without proper checks.",
+          "instruction": "1. Look for functions that assign or change roles. 2. Check that only authorized entities can change roles. 3. Verify that role changes need multiple approvals. 4. Ensure all role changes are logged and transparent. 5. Confirm that roles can't overlap in ways that concentrate power.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on security measures preventing unauthorized role escalation, including governance integration}}"
+        }
+      },
+      "transparency": {
+        "openSourceCode": {
+          "description": "Make sure the entire source code is public and can be checked by anyone.",
+          "instruction": "1. Confirm the contract code is available on platforms like GitHub or Etherscan. 2. Verify that the on-chain code matches the public source. 3. Ensure all libraries are documented and licensed. 4. Check that the code is complete, readable, and follows best practices.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on the openness and verifiability of the source code, highlighting any transparency issues}}"
+        },
+        "immutableParameters": {
+          "description": "Ensure that important settings cannot be changed after deployment unless approved by the community.",
+          "instruction": "1. List all critical settings like tax rates or supply limits. 2. Check if these settings are fixed after deployment. 3. If they can change, confirm that changes need multi-sig or community vote and timelocks. 4. Look for limits on how much and how often they can change. 5. Understand how these changes affect trust and stability.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on the immutability and governance controls of critical parameters, highlighting any vulnerabilities or strengths}}"
+        }
+      },
+      "economicSecurity": {
+        "transactionLimits": {
+          "description": "Set limits on transactions to prevent big market swings and manipulation without central control.",
+          "instruction": "1. Look at token transfer functions for limits on amounts or frequency. 2. Check if these limits are fixed or changeable only with community approval. 3. Evaluate if limits help stability and don't hurt normal use. 4. Confirm limits are clear, fair, and enforced automatically with proper logging.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on transaction limits, their enforcement, and governance controls, highlighting any potential risks or strengths}}"
+        },
+        "slippageProtection": {
+          "description": "Protect users from big price swings during trades, making sure the owner can't bypass these protections.",
+          "instruction": "1. Find where slippage limits are set in token swaps. 2. Ensure only trusted processes can change these limits, needing multi-sig. 3. Check that limits are reasonable and clearly documented. 4. Verify the owner can't disable these protections. 5. Consider how slippage limits keep the market stable and protect users.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on slippage protection measures, their enforceability, and impact on market stability and user trust}}"
+        },
+        "flashLoanResistance": {
+          "description": "Make sure the contract is safe from flash loan attacks that can cause quick market moves and exploit weaknesses.",
+          "instruction": "1. Identify parts of the code that flash loans could exploit, like handling funds or votes. 2. Check that the code prevents repeated rapid calls (reentrancy guards). 3. Use cooldowns or delays to limit rapid actions. 4. Ensure price feeds are secure and decentralized. 5. Set limits on transaction sizes and frequency. 6. Confirm critical functions require timelock and multi-sig approval. 7. If protections are missing, flag the risk.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on the contract’s resistance to flash loan attacks, including implemented safeguards and potential vulnerabilities}}"
+        }
+      },
+      "timeBasedControls": {
+        "timelockDelays": {
+          "description": "Make sure important actions have a waiting period so users can react.",
+          "instruction": "1. Find where the code uses timelocks to delay actions like upgrades or changes. 2. Check if the wait times (e.g., 24-48 hours) are long enough. 3. Ensure timelock settings can't be changed by one person alone. 4. Confirm that timelocks execute automatically after the delay. 5. Verify timelocks are well-documented for the community.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on the implementation and security of timelock delays, highlighting any potential bypass risks or strengths}}"
+        },
+        "cooldownPeriods": {
+          "description": "Set waiting times between big actions or trades to stop rapid manipulation.",
+          "instruction": "1. Find where cooldown periods are set for important functions. 2. Ensure cooldowns apply equally to everyone, including the owner. 3. Check that the wait times are long enough to stop abuse but not too long for normal use. 4. Verify the owner can't change cooldowns without multi-sig. 5. Confirm cooldowns are enforced by code and logged.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on cooldown period implementations, including their enforceability and impact on security and user experience}}"
+        },
+        "emergencyPauseLimits": {
+          "description": "Ensure emergency stop features are used carefully and not misused for long periods.",
+          "instruction": "1. Find functions that pause contract operations. 2. Check that pausing needs approval from multiple parties, not just the owner. 3. Ensure pauses have time limits and clear conditions. 4. Confirm decisions to pause/resume require community governance. 5. Verify that pause actions are logged and the community is notified.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on emergency pause mechanisms, including safeguards against misuse and transparency measures}}"
+        },
+        "sunsetClauses": {
+          "description": "Set clauses so owner/admin powers end after a certain time, helping decentralization.",
+          "instruction": "1. Locate clauses that end owner/admin privileges after a set time. 2. Check that the time periods are reasonable. 3. Verify these clauses can't be changed by the owner later. 4. Ensure privileges automatically end when time is up. 5. Confirm transparent scheduling and communication about these clauses.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on sunset clauses, including their implementation, enforceability, and impact on decentralization}}"
+        }
+      },
+      "multiSigRequirements": {
+        "criticalOperationApproval": {
+          "description": "Make sure big actions need approval from several trusted people, not just one owner.",
+          "instruction": "1. Identify very important functions (like upgrades, big transfers). 2. Check that these need multiple signatures before they happen. 3. Confirm signatures come from different, trusted people. 4. Verify multi-sig rules are enforced by code. 5. Ensure transparency through logged events.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on multi-sig approval processes}}"
+        },
+        "quorumRequirements": {
+          "description": "Ensure important decisions need a minimum number of votes to pass.",
+          "instruction": "1. Look at how many votes are needed for decisions. 2. Confirm quorum is high enough to stop a small group from deciding everything. 3. Check if quorum adjusts with more participants. 4. Ensure quorum rules are enforced by code. 5. Verify quorum information is public and transparent.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on quorum requirements, including their sufficiency and impact on governance fairness and decentralization}}"
+        },
+        "backupAdminKeys": {
+          "description": "Ensure backup admin keys or emergency plans are secure and not controlled by one person.",
+          "instruction": "1. Find functions that set backup admin keys. 2. Confirm these require multi-sig approvals or community governance. 3. Ensure backup keys are held by different trusted groups. 4. Verify activation requires multiple approvals and is only for emergencies. 5. Check that backup key actions are logged and the community is notified.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on backup admin keys, including their security measures and governance integration}}"
+        }
+      },
+      "integrationSafety": {
+        "oracleManipulationResistance": {
+          "description": "Make sure the contract uses several independent data sources (oracles) so one party can't manipulate prices.",
+          "instruction": "1. Find where external data like prices are used. 2. Ensure multiple, independent oracles are used. 3. Check for backup or fallback oracles if one fails. 4. Confirm changes to oracles need multi-sig or governance. 5. Assess how oracle changes affect security.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on oracle integration, focusing on decentralization and resistance to manipulation}}"
+        },
+        "dependencyRisks": {
+          "description": "Ensure external libraries and contracts are safe, up-to-date, and minimal to reduce risks.",
+          "instruction": "1. List all external libraries and contracts used. 2. Check that they are audited and secure. 3. Confirm dependencies can't be changed by one person without approval. 4. Ensure only necessary dependencies are used. 5. Verify documentation and public access to dependency code.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on external dependencies, focusing on their security, audit status, and governance controls}}"
+        },
+        "crossChainBridgeSecurity": {
+          "description": "Make sure cross-chain bridges are secure and not controlled by one party.",
+          "instruction": "1. Find functions that handle transfers between blockchains. 2. Check who controls the bridge and ensure it's decentralized. 3. Verify the bridge has been audited and is secure. 4. Confirm changes to the bridge require multi-sig or governance. 5. Look for multiple validators and fallback systems.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on cross-chain bridge security, focusing on decentralization and robustness against manipulation}}"
+        },
+        "dexIntegrationSafety": {
+          "description": "Ensure that connections to decentralized exchanges (DEXes) are fair and cannot be abused by any single party.",
+          "instruction": "1. Locate functions interacting with DEXes like adding liquidity or swapping tokens. 2. Confirm the owner can't control these functions for personal gain without oversight. 3. Ensure slippage limits and anti-manipulation features are in place. 4. Verify transparency through event logs and adherence to open standards. 5. Check that any changes to DEX settings need governance approval.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on DEX integration safety, focusing on fairness, transparency, and protection against manipulation}}"
+        }
+      },
+      "complianceAndStandards": {
+        "ercCompliance": {
+          "description": "Ensure the contract follows ERC standards without hidden functions that allow central control.",
+          "instruction": "1. Compare the contract's functions to ERC standards. 2. Check that required events are correctly emitted. 3. Confirm there are no extra functions that break standard rules. 4. Ensure roles like Minter/Burner are controlled and don't allow unauthorized minting/burning. 5. Verify once ERC compliance is set, it can't be changed secretly.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on ERC compliance, highlighting any deviations or vulnerabilities and their impact}}"
+        }
+      },
+      "accessControl": {
+        "roleBasedPermissions": {
+          "description": "Make sure roles are clearly defined and don't give too much power to one person.",
+          "instruction": "1. List all roles (Admin, Minter, etc.) and their purposes. 2. Check each role's permissions to ensure they're necessary and limited. 3. Verify role assignments need multi-sig or governance. 4. Confirm no single role can override others. 5. Ensure all role changes are logged and auditable.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on role-based permissions, highlighting any excessive privileges or secure controls}}"
+        },
+        "roleRenouncement": {
+          "description": "Ensure roles can be given up or transferred safely to avoid permanent centralization.",
+          "instruction": "1. Find functions to renounce or transfer roles. 2. Check that only the role holder can give up their role. 3. Confirm giving up a role doesn't break the contract. 4. Ensure renouncing/transferring roles needs proper authorization and approvals. 5. Verify that such actions are logged and transparent.",
+          "redFlag": "{{true/false}}",
+          "criticalityScore": "{{1-10}}",
+          "comment": "{{Detailed comments on renouncing and transferring roles securely, highlighting their impact on decentralization}}"
+        }
+      }
+    },
+    "conclusion": {
+      "summary": "{{Summary of audit findings, highlighting key strengths and weaknesses identified during the audit}}",
+      "dangers": [
+        "{{Detailed description of Danger 1}}",
+        "{{Detailed description of Danger 2}}",
+        "{{Detailed description of Danger 3}}",
+        "{{Detailed description of Danger 4}}"
+      ],
+      "comments": "{{General comments about the contract, including commendations for well-implemented features and recommendations for improvement}}",
+      "totalRiskScore": "{{Risk Score: Low, Medium, High}}"
+    }
+  }
+  
