@@ -15,18 +15,19 @@
     referrerpolicy="no-referrer"
   />
   <!-- Open Graph / Facebook Meta Tags -->
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://cryptosaurus.meme/" />
-<meta property="og:title" content="CRYPTOSAURUS - Owner Rights Risk Analysis" />
-<meta property="og:description" content="Explore the risk analysis of owner rights for CRYPTOSAURUS and uncover important insights." />
-<meta property="og:image" content="/meta.webp" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://cryptosaurus.meme/" />
+  <meta property="og:title" content="CRYPTOSAURUS - Owner Rights Risk Analysis" />
+  <meta property="og:description" content="Explore the risk analysis of owner rights for CRYPTOSAURUS and uncover important insights." />
+  <meta property="og:image" content="/meta.webp" />
 
-<!-- Twitter Meta Tags -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:url" content="https://cryptosaurus.meme/" />
-<meta name="twitter:title" content="CRYPTOSAURUS - Owner Rights Risk Analysis" />
-<meta name="twitter:description" content="Explore the risk analysis of owner rights for CRYPTOSAURUS and uncover important insights." />
-<meta name="twitter:image" content="/meta.webp" />
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://cryptosaurus.meme/" />
+  <meta name="twitter:title" content="CRYPTOSAURUS - Owner Rights Risk Analysis" />
+  <meta name="twitter:description" content="Explore the risk analysis of owner rights for CRYPTOSAURUS and uncover important insights." />
+  <meta name="twitter:image" content="/meta.webp" />
+  
   <!-- Google Fonts -->
   <link
     href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Orbitron:wght@400;700&family=Roboto:wght@400;700&family=Fira+Code&display=swap"
@@ -130,14 +131,14 @@
     }
     /* Disclaimer Styles */
     .disclaimer {
-    border: 2px solid #f59e0b; /* Solid border with color */
-    color: #a1a1a2; /* Gray-800 for text */
-    padding: 1.25rem; /* Slightly larger padding for better spacing */
-    border-radius: 0.5rem; /* More pronounced rounded corners */
-    margin-bottom: 1.5rem; /* Consistent spacing below the element */
-    text-align: center; /* Centered text */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-}
+      border: 2px solid #f59e0b; /* Solid border with color */
+      color: #a1a1a2; /* Gray-800 for text */
+      padding: 1.25rem; /* Slightly larger padding for better spacing */
+      border-radius: 0.5rem; /* More pronounced rounded corners */
+      margin-bottom: 1.5rem; /* Consistent spacing below the element */
+      text-align: center; /* Centered text */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    }
 
     .disclaimer a {
       color: #dc2626; /* Red-600 */
@@ -184,46 +185,31 @@
     html {
       scroll-behavior: smooth;
     }
+    .header-logos img {
+      height: 50px;
+ 
+    }
   </style>
 </head>
-<body class="min-h-screen p-6 bg-gray-900 text-gray-200">
+<body class="min-h-screen bg-gray-900 text-gray-200 flex flex-col">
+  <!-- ========== ANNOUNCEMENT BANNER ========== -->
+
+  <!-- END ANNOUNCEMENT BANNER -->
+
   <!-- ========== HEADER / NAV ========== -->
-  <header class="mb-12">
-    <nav class="flex items-center justify-between flex-wrap p-4 sm:p-6">
-      <div class="flex items-center flex-shrink-0 text-white mr-6">
-        <!-- Logo Placeholder -->
-        <img
-          src="/logo.png"
-          alt="CRYPTOSAURUS Logo"
-          class="h-16 w-16 mr-3 rounded-lg shadow-lg"
-        />
-        <span
-          class="font-bold text-3xl tracking-tight neon-text"
-          style="font-family: 'Bebas Neue', sans-serif;"
-        >
-          CRYPTOSAURUS
-        </span>
+  <header class="p-6 flex mb-16 items-center justify-between bg-gray-800 shadow-lg sticky top-0 z-50">
+    <div class="flex items-center space-x-3">
+      <!-- Updated Logo Section with Ethereum Logo -->
+      <div class="flex items-center space-x-2 header-logos">
+        <img src="/logo.png" alt="CRYPTOSAURUS Logo" class="h-18 rounded-lg shadow-lg"/>
       </div>
-      <div class="block lg:hidden">
-        <button
-          id="nav-toggle"
-          class="flex items-center px-3 py-2 rounded text-gray-400 hover:text-green-400 transition-all"
-        >
-          <svg class="fill-current h-6 w-6" viewBox="0 0 24 24">
-            <path
-              d="M4 5h16v2H4V5zm0 6h16v2H4v-2zm0 6h16v2H4v-2z"
-            />
-          </svg>
-        </button>
-      </div>
-      <div
-        id="nav-content"
-        class="w-full block flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block text-center lg:text-right"
-      >
-    
-      </div>
-    </nav>
+      <h1 class="text-4xl font-bold neon-text" style="font-family: 'Bebas Neue', sans-serif;">
+        CRYPTOSAURUS
+      </h1>
+    </div>
+
   </header>
+
   <!-- END HEADER / NAV -->
 
   <!-- ========== WRAPPER ========== -->
@@ -237,11 +223,11 @@
     <!-- MAIN CONTENT -->
     <div id="main-content">
       <!-- ========== DISCLAIMER SECTION ========== -->
-      <section id="disclaimer-section" class="disclaimer">
+      <!-- <section id="disclaimer-section" class="disclaimer">
         <p>
           <strong>Disclaimer:</strong> This risk analysis is not financial advice. It is intended as an important part of your <em>Do Your Own Research (DYOR)</em>.
         </p>
-      </section>
+      </section> -->
       <!-- END DISCLAIMER SECTION -->
 
       <!-- ========== HERO SECTION ========== -->
@@ -261,40 +247,6 @@
         <!-- Audit Badges -->
         <div id="auditBadges" class="mt-4 flex justify-center space-x-2">
           <!-- Dynamically added -->
-        </div>
-
-        <!-- Important Owner Rights -->
-        <div class="mt-8 bg-gray-800 p-6 rounded-lg shadow-lg">
-          <h2 class="text-2xl font-bold neon-text mb-2">
-            Important Owner Rights
-          </h2>
-          <ul class="list-disc list-inside text-gray-300">
-            <li>
-              <strong>Full Control:</strong> The owner can manage and distribute all tokens.
-            </li>
-            <li>
-              <strong>Unlimited Minting:</strong> Ability to create new tokens without restrictions.
-            </li>
-            <li>
-              <strong>Contract Adjustments:</strong> The owner can adjust critical parameters of the contract.
-            </li>
-          </ul>
-          <p class="mt-4 text-gray-300">
-            These rights can lead to centralization risks, such as market manipulation or loss of trust among users.
-          </p>
-          <!-- Tooltip -->
-          <p class="mt-4 text-gray-300">
-            <strong>More Information:</strong>
-            <span class="tooltip">
-              <i class="fas fa-info-circle text-blue-400 tooltip-icon"></i>
-              <span class="tooltiptext">
-                Centralization risks refer to the possibility that
-                one entity (the owner) has too much power over the token,
-                which can lead to market manipulation or loss of trust
-                among users.
-              </span>
-            </span>
-          </p>
         </div>
       </section>
       <!-- END HERO SECTION -->
@@ -412,7 +364,7 @@
       <!-- END TRANSACTION CHART SECTION -->
 
       <!-- ========== RISK SCORE SECTION (Hidden on Page Load) ========== -->
- 
+
       <!-- END RISK SCORE SECTION -->
 
       <!-- ========== FILTER BUTTONS (Hidden on Page Load) ========== -->
@@ -448,8 +400,6 @@
       <!-- END AUDIT CHECKLIST -->
 
       <!-- ========== CONCLUSION (Hidden on Page Load) ========== -->
-       <!-- ========== TRANSACTION CHART SECTION (Hidden on Page Load) ========== -->
-  
       <section
         id="conclusion"
         class="hidden p-8 bg-gray-800 rounded-lg shadow-lg border-l-4 border-green-500"
@@ -457,53 +407,53 @@
         <!-- Dynamically filled via JS -->
       </section>
       <section
-      id="share-section"
-      class="hidden mt-8 mb-8 bg-gray-800 p-6 rounded-lg shadow-lg"
-    >
-      <h3 class="text-xl font-bold neon-text mb-4">Share the results</h3>
-      <p class="text-gray-400 mb-4">
-      </p>
-      <div class="flex flex-wrap gap-4">
-        <!-- Telegram -->
-        <a
-          id="share-telegram"
-          class="neon-button flex items-center space-x-2 px-4 py-2 rounded-md"
-          target="_blank"
-        >
-          <i class="fab fa-telegram-plane"></i>
-          <span>Telegram</span>
-        </a>
-        <!-- Discord -->
-        <button
-          id="share-discord"
-          class="neon-button flex items-center space-x-2 px-4 py-2 rounded-md"
-        >
-          <i class="fab fa-discord"></i>
-          <span>Discord (copy)</span>
-        </button>
-        <!-- X (Twitter) -->
-        <a
-          id="share-twitter"
-          class="neon-button flex items-center space-x-2 px-4 py-2 rounded-md"
-          target="_blank"
-        >
-          <i class="fab fa-twitter"></i>
-          <span>X</span>
-        </a>
-        <!-- Facebook -->
-        <a
-          id="share-facebook"
-          class="neon-button flex items-center space-x-2 px-4 py-2 rounded-md"
-          target="_blank"
-        >
-          <i class="fab fa-facebook-f"></i>
-          <span>Facebook</span>
-        </a>
-      </div>
-    </section>
-    
+        id="share-section"
+        class="hidden mt-8 mb-8 bg-gray-800 p-6 rounded-lg shadow-lg"
+      >
+        <h3 class="text-xl font-bold neon-text mb-4">Share the results</h3>
+        <p class="text-gray-400 mb-4">
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <!-- Telegram -->
+          <a
+            id="share-telegram"
+            class="neon-button flex items-center space-x-2 px-4 py-2 rounded-md"
+            target="_blank"
+          >
+            <i class="fab fa-telegram-plane"></i>
+            <span>Telegram</span>
+          </a>
+          <!-- Discord -->
+          <button
+            id="share-discord"
+            class="neon-button flex items-center space-x-2 px-4 py-2 rounded-md"
+          >
+            <i class="fab fa-discord"></i>
+            <span>Discord (copy)</span>
+          </button>
+          <!-- X (Twitter) -->
+          <a
+            id="share-twitter"
+            class="neon-button flex items-center space-x-2 px-4 py-2 rounded-md"
+            target="_blank"
+          >
+            <i class="fab fa-twitter"></i>
+            <span>X</span>
+          </a>
+          <!-- Facebook -->
+          <a
+            id="share-facebook"
+            class="neon-button flex items-center space-x-2 px-4 py-2 rounded-md"
+            target="_blank"
+          >
+            <i class="fab fa-facebook-f"></i>
+            <span>Facebook</span>
+          </a>
+        </div>
+      </section>
       
-      <section id="conclusion3" class="hidden  p-8 bg-gray-800 rounded-lg shadow-lg ">
+        
+      <section id="conclusion3" class="hidden p-8 bg-gray-800 rounded-lg shadow-lg">
         <h2 class="mt-8 text-2xl font-bold mb-4 border-b pb-2 border-gray-700 capitalize neon-text">
           Extra: Analysis of Token Distribution to Top Wallets
          </h2>
@@ -552,7 +502,7 @@
       
       
       <!-- ========== DEEL-SECTIE (SHARE SECTION) ========== -->
- 
+
       <!-- END DEEL-SECTIE -->
 
       <!-- ========== CONTRACT CODE SECTION (Hidden on Page Load) ========== -->
@@ -598,14 +548,17 @@
       </div>
     </div>
   </div>
+
+  <!-- AOS and Typed.js initialization -->
+
+
+
   <!-- END WRAPPER -->
 
   <!-- ========== SCRIPTS ========== -->
   <script>
     // Toggle navigation menu on small screens
-    document.getElementById('nav-toggle').addEventListener('click', function () {
-      document.getElementById('nav-content').classList.toggle('hidden');
-    });
+
 
     // Modals
     function openModal(modalId) {

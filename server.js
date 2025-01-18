@@ -847,6 +847,14 @@ app.get("/api/audit/:contractAddress", async (req, res) => {
 
 
 // =============== ROUTE /:contractAddress =============== //
+
+
+
+
+app.get("/home", (req, res) => {
+    res.sendFile(path.join(__dirname,"public" , "home.html"));
+});
+
 app.get("/:contractAddress", (req, res) => {
     res.sendFile(path.join(__dirname,"public" ,"index.html"));
 });

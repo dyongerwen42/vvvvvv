@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CRYPTOSAURUS - AI-Powered Contract Auditing</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" 
+        crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <!-- AOS (Animate On Scroll) CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <!-- Typed.js for typing animation -->
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <style>
+    /* Custom neon effects and styling */
+    .neon-text {
+      color: #10b981;
+      text-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
+    }
+    .neon-button {
+      background: #10b981;
+      color: #121212;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .neon-button:hover {
+      background: #059669;
+      transform: scale(1.05);
+    }
+    /* Hero background gradient animation */
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .animated-bg {
+      /* Adjusted gradient to be darker with reduced green */
+      background: linear-gradient(270deg, #1f2937, #0f172a, #1f2937, #0f172a);
+      background-size: 800% 800%;
+      animation: gradientBG 20s ease infinite;
+      position: relative;
+    }
+    /* Overlay for better readability */
+    .animated-bg::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.7); /* Dark semi-transparent overlay */
+      z-index: 0;
+    }
+    .animated-bg > * {
+      position: relative;
+      z-index: 1;
+    }
+    /* Announcement Banner Styling */
+    .announcement-banner {
+      background-color: #059669;
+      color: #ffffff;
+      text-align: center;
+      padding: 0.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+    .announcement-banner img {
+      height: 24px;
+      width: 24px;
+      margin-right: 0.5rem;
+      vertical-align: middle;
+    }
+    /* Adjusted Header Logo Spacing */
+    .header-logos img {
+      height: 50px;
+ 
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-gray-200 flex flex-col">
+  <!-- Announcement Banner -->
+  <div class="announcement-banner">
+    Experience Next-Level Security and Transparency: CRYPTOSAURUS Now Audits Exclusively on the Ethereum Network!
+</div>
+
+  <!-- Header -->
+  <header class="p-6 flex items-center justify-between bg-gray-800 shadow-lg sticky top-0 z-50">
+    <div class="flex items-center space-x-3">
+      <!-- Updated Logo Section with Ethereum Logo -->
+      <div class="flex items-center space-x-2 header-logos">
+        <img src="/logo.png" alt="CRYPTOSAURUS Logo" class="h-18 rounded-lg shadow-lg"/>
+      </div>
+      <h1 class="text-4xl font-bold neon-text" style="font-family: 'Bebas Neue', sans-serif;">
+        CRYPTOSAURUS
+      </h1>
+    </div>
+
+  </header>
+
+  <!-- Hero Section with animated background and typing effect -->
+  <section id="hero" class="flex-grow flex flex-col items-center justify-center text-center px-4 py-20 animated-bg">
+    <h2 class="text-5xl font-extrabold neon-text mb-4" 
+        style="font-family: 'Orbitron', sans-serif;" data-aos="fade-up">
+      Welcome to CRYPTOSAURUS
+    </h2>
+    <p class="text-xl text-gray-300 mb-8" 
+       data-aos="fade-up" data-aos-delay="200">
+      AI-Powered Smart Contract Auditing for Security, Transparency, and Trust.
+    </p>
+    <!-- Ethereum Badge in Hero Section -->
+    <div class="flex items-center justify-center mb-8" data-aos="fade-up" data-aos-delay="400">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Ethereum-icon-purple.svg/800px-Ethereum-icon-purple.svg.png" alt="Ethereum Logo" class="h-12 w-12 mr-2">
+      <span class="text-lg text-green-400 font-semibold">Exclusively Supporting Ethereum Network Contracts</span>
+    </div>
+    <div id="typed-output" class="text-lg text-green-400 mb-8" 
+         data-aos="fade-up" data-aos-delay="400"></div>
+    <a href="/" class="neon-button px-8 py-4 text-2xl rounded-md" 
+       data-aos="zoom-in" data-aos-delay="600">
+      Start an Audit
+    </a>
+  </section>
+
+  <!-- About Us Section -->
+  <section id="about" class="py-16 bg-gray-800 text-center px-6" data-aos="fade-up">
+    <h3 class="text-4xl neon-text mb-6">About CRYPTOSAURUS</h3>
+    <p class="text-gray-300 max-w-3xl mx-auto mb-8">
+      CRYPTOSAURUS simplifies and secures smart contract evaluations by blending advanced AI technology with expert oversight. We provide deep insights into contract risks, especially regarding owner rights and centralization. Our platform empowers investors, developers, and enthusiasts to make informed decisions, fostering trust and transparency in the blockchain ecosystem.
+    </p>
+    <div class="flex flex-wrap justify-center space-x-6 mt-8">
+      <div class="max-w-sm p-6 bg-gray-700 rounded-lg shadow-lg m-4" data-aos="flip-left">
+        <i class="fas fa-shield-alt fa-3x text-green-400 mb-4"></i>
+        <h4 class="text-2xl font-bold mb-2 neon-text">Security First</h4>
+        <p class="text-gray-300">
+          Identifying vulnerabilities before they become threats.
+        </p>
+      </div>
+      <div class="max-w-sm p-6 bg-gray-700 rounded-lg shadow-lg m-4" 
+           data-aos="flip-left" data-aos-delay="100">
+        <i class="fas fa-robot fa-3x text-green-400 mb-4"></i>
+        <h4 class="text-2xl font-bold mb-2 neon-text">AI-Powered Analysis</h4>
+        <p class="text-gray-300">
+          Cutting-edge AI delivering fast, reliable assessments.
+        </p>
+      </div>
+      <div class="max-w-sm p-6 bg-gray-700 rounded-lg shadow-lg m-4" 
+           data-aos="flip-left" data-aos-delay="200">
+        <i class="fas fa-users fa-3x text-green-400 mb-4"></i>
+        <h4 class="text-2xl font-bold mb-2 neon-text">Expert Team</h4>
+        <p class="text-gray-300">
+          Human oversight ensuring precision and valuable insight.
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Features Section -->
+  <section id="features" class="py-16 bg-gray-900 text-center px-6">
+    <h3 class="text-4xl neon-text mb-6" data-aos="fade-up">Our Features</h3>
+    <p class="text-gray-300 max-w-2xl mx-auto mb-12" 
+       data-aos="fade-up" data-aos-delay="100">
+      CRYPTOSAURUS provides powerful tools to thoroughly evaluate smart contracts:
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      <div class="p-6 bg-gray-800 rounded-lg shadow-lg" data-aos="zoom-in">
+        <i class="fas fa-search-dollar fa-3x text-green-400 mb-4"></i>
+        <h4 class="text-2xl font-bold neon-text mb-2">Owner Rights Analysis</h4>
+        <p class="text-gray-300">
+          Evaluate the control owners hold and identify centralization risks.
+        </p>
+      </div>
+      <div class="p-6 bg-gray-800 rounded-lg shadow-lg" 
+           data-aos="zoom-in" data-aos-delay="100">
+        <i class="fas fa-chart-line fa-3x text-green-400 mb-4"></i>
+        <h4 class="text-2xl font-bold neon-text mb-2">Risk Scoring</h4>
+        <p class="text-gray-300">
+          Comprehensive risk scores based on advanced metrics.
+        </p>
+      </div>
+      <div class="p-6 bg-gray-800 rounded-lg shadow-lg" 
+           data-aos="zoom-in" data-aos-delay="200">
+        <i class="fas fa-code fa-3x text-green-400 mb-4"></i>
+        <h4 class="text-2xl font-bold neon-text mb-2">Source Code Review</h4>
+        <p class="text-gray-300">
+          Deep dive into verified smart contract code with expert commentary.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- What We Check Section with Card Layout -->
+  <section id="what-we-check" class="py-16 bg-gray-800 text-left px-6" data-aos="fade-up">
+    <h3 class="text-4xl neon-text mb-6 text-center">What We Check</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      <!-- Token Distribution Card -->
+      <div class="bg-gray-900 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <h4 class="text-2xl neon-text mb-2">Token Distribution</h4>
+        <p class="text-gray-300">
+          We examine how tokens are distributed between the owner and the community, checking for fairness, transparency, vesting schedules, and mechanisms to prevent unfair concentration.
+        </p>
+      </div>
+      <!-- Owner Privileges Card -->
+      <div class="bg-gray-900 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <h4 class="text-2xl neon-text mb-2">Owner Privileges</h4>
+        <p class="text-gray-300">
+          Evaluation of owner powers like minting, fund access, parameter changes, and upgrade rights, with focus on safeguards against misuse.
+        </p>
+      </div>
+      <!-- Governance Card -->
+      <div class="bg-gray-900 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <h4 class="text-2xl neon-text mb-2">Governance</h4>
+        <p class="text-gray-300">
+          Assessing voting power distribution, DAO structures, and transparency in decision-making to ensure fair participation.
+        </p>
+      </div>
+      <!-- Vesting and Locks Card -->
+      <div class="bg-gray-900 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <h4 class="text-2xl neon-text mb-2">Vesting and Locks</h4>
+        <p class="text-gray-300">
+          Analysis of token locking and vesting mechanisms to prevent sudden dumps and protect market stability.
+        </p>
+      </div>
+      <!-- Hidden Risks & Transparency Card -->
+      <div class="bg-gray-900 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <h4 class="text-2xl neon-text mb-2">Hidden Risks & Transparency</h4>
+        <p class="text-gray-300">
+          Searching for undisclosed functions, role escalations, and ensuring the source code is open and compliant with standards.
+        </p>
+      </div>
+      <!-- Economic Security & Controls Card -->
+      <div class="bg-gray-900 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <h4 class="text-2xl neon-text mb-2">Economic Security & Controls</h4>
+        <p class="text-gray-300">
+          Evaluating transaction limits, slippage protections, and flash loan resistance to maintain market stability.
+        </p>
+      </div>
+      <!-- Time-Based Controls & MultiSig Card -->
+      <div class="bg-gray-900 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <h4 class="text-2xl neon-text mb-2">Time-Based Controls & MultiSig</h4>
+        <p class="text-gray-300">
+          Checking timelocks, cooldowns, emergency pauses, and multi-signature requirements to secure critical operations.
+        </p>
+      </div>
+      <!-- Integration Safety Card -->
+      <div class="bg-gray-900 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <h4 class="text-2xl neon-text mb-2">Integration Safety</h4>
+        <p class="text-gray-300">
+          Assessing security of oracles, dependency management, cross-chain bridges, and DEX integrations.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Ethereum Section (New) -->
+  <section id="why-ethereum" class="py-16 bg-gray-900 text-center px-6" data-aos="fade-up">
+    <h3 class="text-4xl neon-text mb-6">Why Ethereum?</h3>
+    <p class="text-gray-300 max-w-3xl mx-auto mb-8">
+      Ethereum stands out as the premier blockchain network for smart contracts due to its unparalleled transparency and security. Unlike other networks such as Solana, Ethereum ensures that all smart contracts are fully visible and auditable by anyone. This transparency fosters trust among developers and investors alike, as every aspect of a contract's code is accessible for review and verification.
+    </p>
+    <div class="flex flex-col md:flex-row justify-center items-start space-y-8 md:space-y-0 md:space-x-12">
+      <div class="flex flex-col items-center">
+        <i class="fas fa-eye fa-3x text-green-400 mb-4"></i>
+        <h4 class="text-2xl font-bold mb-2 neon-text">Full Transparency</h4>
+        <p class="text-gray-300">
+          Every smart contract on Ethereum is open-source, allowing for complete visibility and auditability. This openness reduces the risk of hidden vulnerabilities and promotes a secure environment for decentralized applications.
+        </p>
+      </div>
+      <div class="flex flex-col items-center">
+        <i class="fas fa-lock fa-3x text-green-400 mb-4"></i>
+        <h4 class="text-2xl font-bold mb-2 neon-text">Enhanced Security</h4>
+        <p class="text-gray-300">
+          Ethereum's robust security protocols ensure that smart contracts are resistant to exploits and attacks. The extensive developer community continuously audits and improves the network's security measures.
+        </p>
+      </div>
+      <div class="flex flex-col items-center">
+        <i class="fas fa-network-wired fa-3x text-green-400 mb-4"></i>
+        <h4 class="text-2xl font-bold mb-2 neon-text">Widespread Adoption</h4>
+        <p class="text-gray-300">
+          As the first smart contract platform, Ethereum boasts a vast ecosystem of developers, projects, and users. This widespread adoption ensures continuous innovation and support for the network.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-16 bg-gray-800 text-center px-6" data-aos="fade-up">
+    <h3 class="text-4xl neon-text mb-6">Get in Touch</h3>
+    <p class="text-gray-300 max-w-2xl mx-auto mb-8">
+      Have questions or need support? Reach out to our team—we're here to help navigate smart contract audits and blockchain security.
+    </p>
+    <a href="mailto:support@cryptosaurus.meme" class="neon-button px-6 py-3 text-xl rounded-md">
+      <i class="fas fa-envelope mr-2"></i> Contact Support
+    </a>
+  </section>
+
+  <footer class="py-6 bg-gray-800 text-center text-gray-500">
+    &copy; 2025 CRYPTOSAURUS. All rights reserved.
+  </footer>
+
+  <!-- AOS and Typed.js initialization -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 800, once: true });
+    new Typed('#typed-output', {
+      strings: [
+        'Analyzing Ethereum smart contracts with cutting-edge AI...',
+        'Ensuring transparency and security for your Ethereum investments...',
+        'Leveraging expert insights combined with artificial intelligence for Ethereum contracts...'
+      ],
+      typeSpeed: 50,
+      backSpeed: 25,
+      loop: true
+    });
+  </script>
+</body>
+</html>

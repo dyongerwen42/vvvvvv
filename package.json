@@ -1,17 +1,28 @@
 {
   "dependencies": {
+    "@solana/web3.js": "^1.98.0",
     "axios": "^1.7.9",
     "axios-retry": "^4.5.0",
     "bottleneck": "^2.19.5",
     "cors": "^2.8.5",
+    "discord": "^0.8.2",
+    "discord.js": "^14.17.3",
     "dotenv": "^16.4.7",
     "ethers": "^6.13.5",
     "express": "^4.21.2",
     "express-rate-limit": "^7.5.0",
+    "imap-simple": "^5.1.0",
+    "inquirer": "^12.3.2",
     "mongodb": "^6.12.0",
     "mustache-express": "^1.3.2",
-    "openai": "^4.78.0",
+    "node-telegram-bot-api": "^0.66.0",
+    "nodemailer": "^6.9.16",
+    "openai": "^4.78.1",
     "p-queue": "^8.0.1",
+    "puppeteer": "^24.1.0",
+    "readline": "^1.3.0",
+    "telegram": "^2.26.16",
+    "web3": "^4.16.0",
     "winston": "^3.17.0"
   }
 }
